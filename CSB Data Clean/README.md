@@ -1,7 +1,7 @@
-<img src="https://slu-soc5650.github.io/images/logo.png" align="right" />
-
+## Citizen's Service Bureau Data Clean <img src="https://slu-soc5650.github.io/images/logo.png" align="right" />
+===========================================================
 [![](https://img.shields.io/badge/semester-fall%202018-green.svg)]
-[![](https://img.shields.io/badge/release-draft-green.svg)]
+[![](https://img.shields.io/badge/release-complete-green.svg)]
 
 ### Section Contents
 
