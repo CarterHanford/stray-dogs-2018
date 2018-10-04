@@ -1,7 +1,0 @@
-"0","library(here) # working directory"
-"2","package ‘here’ was built under R version 3.5.1"
-"2","here() starts at E:/Users/hanfordca/Documents/GitHub/HanfordAssignments/FinalProject/CSBclean
-"
-"0","library(sf) # reading shapefiles"
-"2","Error in library(sf) : there is no package called â€˜sfâ€™
-"

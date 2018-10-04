@@ -1,3 +1,0 @@
-"0","data %>%"
-"0","  filter(status != ""CANCEL"") %>%"
-"0","  filter(status != ""NA"")-> data1"
