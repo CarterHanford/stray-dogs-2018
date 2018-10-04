@@ -1,8 +1,7 @@
 ## Geospatial Analysis of the City of St. Louis <img src="https://slu-soc5650.github.io/images/logo.png" align="right" />
 
 [![](https://img.shields.io/badge/semester-spring%202018-orange.svg)](https://github.com/CarterHanford/stray-dogs-2018)
-[![](https://img.shields.io/badge/release-complete-green.svg)](https://github.com/CarterHanford/stray-dogs-2018)
-[![](https://img.shields.io/github/last-commit/CarterHanford/stray-dogs-2018.svg.svg)](https://github.com/CarterHanford/stray-dogs-2018/commits/master)
+[![](https://img.shields.io/badge/release-complete-brightgreen.svg)](https://github.com/CarterHanford/stray-dogs-2018)
 [![](https://img.shields.io/github/repo-size/CarterHanford/stray-dogs-2018.svg)](https://github.com/CarterHanford/stray-dogs-2018)
 
 ### Introduction
