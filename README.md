@@ -2,7 +2,7 @@
 
 [![](https://img.shields.io/badge/semester-spring%202018-orange.svg)](https://github.com/CarterHanford/stray-dogs-2018)
 [![](https://img.shields.io/badge/release-complete-green.svg)](https://github.com/CarterHanford/stray-dogs-2018)
-[![](https://img.shields.io/github/repo-size/CarterHanford/stray-dogs-2018.svg](https://github.com/CarterHanford/stray-dogs-2018)
+[![](https://img.shields.io/github/repo-size/CarterHanford/stray-dogs-2018.svg)](https://github.com/CarterHanford/stray-dogs-2018)
 
 ### Introduction
 
