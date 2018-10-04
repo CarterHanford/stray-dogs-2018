@@ -1,0 +1,2 @@
+"0","data %>%"
+"0","  select(-probcity, -probzip, -prjcompletedate) -> data"

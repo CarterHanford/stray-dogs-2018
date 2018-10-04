@@ -1,0 +1,27 @@
+"0","library(here) # working directory"
+"0","library(sf) # reading shapefiles"
+"2","package ‘sf’ was built under R version 3.5.1"
+"2","Linking to GEOS 3.6.1, GDAL 2.2.3, proj.4 4.9.3
+"
+"0","library(readr) # csv tool"
+"2","package ‘readr’ was built under R version 3.5.1"
+"0","library(naniar) # missing data analysis"
+"2","package ‘naniar’ was built under R version 3.5.1"
+"0","library(dplyr) # data wrangling"
+"2","package ‘dplyr’ was built under R version 3.5.1"
+"2","
+Attaching package: ‘dplyr’
+
+"
+"2","The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+"
+"0","library(janitor) # data cleaning"
+"2","package ‘janitor’ was built under R version 3.5.1"

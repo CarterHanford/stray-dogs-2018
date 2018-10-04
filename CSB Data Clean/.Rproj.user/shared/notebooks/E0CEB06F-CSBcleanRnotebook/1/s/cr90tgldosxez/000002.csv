@@ -1,0 +1,6 @@
+"0","library(here) # working directory"
+"0","library(sf) # reading shapefiles"
+"0","library(readr) # csv tool"
+"0","library(naniar) # missing data analysis"
+"0","library(dplyr) # data wrangling"
+"0","library(janitor) # data cleaning"

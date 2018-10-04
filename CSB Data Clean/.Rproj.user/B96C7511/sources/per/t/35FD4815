@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1525907475501.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2348671637",
+    "id" : "35FD4815",
+    "lastKnownWriteTime" : 1538662413,
+    "last_content_update" : 1538662498853,
+    "path" : "~/GitHub/HanfordAssignments/FinalProject/CSBclean/docs/CSBcleanRnotebook.Rmd",
+    "project_path" : "docs/CSBcleanRnotebook.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "9,17",
+        "scrollLine" : "0",
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

@@ -1,0 +1,5 @@
+"0","data1 %>%"
+"0","  filter(srx != ""NA"") %>%"
+"0","  filter(sry != ""NA"") %>%"
+"0","  filter(nchar(srx) >=6) %>%"
+"0","  filter(nchar(sry) >=6) -> data1"

@@ -1,0 +1,2 @@
+"0","datanew %>%"
+"0","select(id,code, description, address, date, year, srx, sry)-> datanew"

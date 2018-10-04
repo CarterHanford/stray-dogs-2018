@@ -1,0 +1,171 @@
+---
+title: "Citizen's Service Bureau Data Clean R Notebook"
+author: "Carter Hanford"
+date: '(`r format(Sys.time(), "%B %d, %Y")`)'
+output: 
+  github_document: default
+  html_notebook: default 
+---
+
+## Project Set Up
+
+```{r}
+knitr::opts_knit$set(root.dir = here::here())
+```
+
+### Introduction
+
+  This is the R notebook for my geospatial analysis of the city of St. Louis. This notebook will include the code necessary to clean data from the Citizen's Service Bureau, an organization in St. Louis, Missouri, which deals with city service and citizen requests. These requests, or instances, are saved into databases which are free for public use.  Requests cover non-emergency issues such as potholes, insects, vacant buildings, etc. The data I will be using for my analysis will cover the years 2009-2015. The overarching goal of this process is to clean the data and prepare it to load into a map of the city of St. Louis in ArcMap. 
+
+  The full dataset includes every single request category and instance for those years. My analysis will focus on instances of stray dogs, or "Stray Dog At Large." The full dataset includes 786,355 observations.  By the time I am finished cleaning and subsetting the data to only include information about stray dogs, we will be at 4,666 observations.  Let's get started!
+
+## Load Dependencies
+
+  This code chunk will load all the necessary packages for cleaning our CSB data, most of these packages deal with cleaning the actual data (dplyr, janitor, naniar), while the others help us get to those points.  The Readr package is crucial because the Citizen's Service Bureau (CSB) data comes to us as a csv file, which needs to be specified before we continue.  
+
+```{r}
+library(here) # working directory
+library(sf) # reading shapefiles
+library(readr) # csv tool
+library(naniar) # missing data analysis
+library(dplyr) # data wrangling
+library(janitor) # data cleaning
+```
+
+## Step 1
+
+Using the readr package, we will load the CSB data into our global environment.
+
+```{r csv-read}
+data <- read_csv(here("data", "rawData", "csbCreate.csv"), col_types = cols (
+  srx=col_double(),
+  sry=col_double()
+))
+```
+
+## Step 2
+
+We do not need the following variables; probcity, probzip, and prjcompletedate because they are not relevant and contain lots of missing data, so the following code will remove those three variables.
+
+```{r subset-data}
+data %>%
+  select(-probcity, -probzip, -prjcompletedate) -> data
+```
+
+## Step 3
+
+We will now rename the remaining variables so that they have short and intuitive names. We want names that we can clearly associate with the category that it actually deals with, we do not want a variable that is hard to understand.
+
+```{r rename-variables}
+data %>%
+  rename(id = requestid) %>%
+  rename(code = problemcode)%>%
+  rename(address = probaddress) %>%
+  rename(date = datetimeinit) %>%
+  rename(year = reqYear) -> data
+```
+
+## Step 4
+
+We definitely do not want missing data, so the next code will drop all observations where the status variable is equal to 'cancel' or empty. It is essential to tackle this now, before we progress further into our analysis.
+
+```{r remove-missing-data}
+data %>%
+  filter(status != "CANCEL") %>%
+  filter(status != "NA")-> data1
+```
+
+## Step 5 
+
+Now we will do the same thing for instances of incomplete spatial data. Later, when we prep the data to be used in ArcGIS, it is essential that there are no missing cases of spatial data because they will give us some trouble when creating the maps.
+
+```{r remove-missing-data2}
+data1 %>%
+  filter(srx != "NA") %>%
+  filter(sry != "NA") %>%
+  filter(nchar(srx) >=6) %>%
+  filter(nchar(sry) >=6) -> data1
+```
+
+## Steps 6 & 7
+
+We also want to make sure that there are no duplicates in our data (i.e. the same instance twice), so we will drop those observations and then also confirm that there are no duplicates left after we eliminate them. 
+
+```{r dupes}
+data2<- distinct(data1, .keep_all = TRUE)
+```
+
+```{r dupes2}
+get_dupes(data2, id)
+```
+
+## Step 8 & 9
+
+We will now clean duplicate observations that are identical but have different id numbers, and those that are identical but have different id numbers and x & y coordinate data.
+
+```{r dupes3}
+distinct(data2, code, description, address, date, srx, sry, status, year, .keep_all = TRUE) ->data3
+```
+
+```{r dupes4}
+distinct(data2, code, description, address, date, sry, status, year, .keep_all = TRUE) ->data3
+distinct(data2, code, description, address, date, srx, status, year, .keep_all = TRUE) ->data3
+distinct(data2, code, description, address, date, status, year, .keep_all = TRUE) ->data3
+```
+
+
+Currently, our sample size is n = 721,444, so we haven't made much progress actually shrinking the size of the data set.
+
+## Step 10 & 11
+
+We will now remove the status variable because it is no longer needed.
+
+```{r remove-status}
+data3 %>%
+select(-status) -> datanew
+```
+
+## Step 12
+
+Now we will reorder the variables so that the year variable is located directly after (to the right of) the request date variable. This will help us organize our data.
+
+```{r reorder}
+datanew %>%
+select(id,code, description, address, date, year, srx, sry)-> datanew
+```
+
+## Step 13
+
+We will now drop all observations that do not have problem codes that describe my topic (stray dogs). This is the code chunk that will shrink our data size the most, because it is eliminating all other variables that do not correspond with what we want.
+
+```{r stray-dogs-only}
+datanew %>%
+  mutate(description = case_when(description == "Stray Dog At Large" ~1, TRUE ~ 0)) -> dogdata
+
+filter(dogdata, description == 1) -> dogdata
+```
+
+We now have 4,666 instances.
+
+## Step 15
+
+We will now conduct a missing data analysis, just to make sure we do not have lots of missing cases. If there are missing cases, it is important that we mention it before moving on.
+
+```{r miss-var}
+miss_var_summary(dogdata)
+```
+There is 1 instance of missing data under the address variable.
+
+Finally, we will export the data to a csv file that is ready to load into ArcGIS.
+
+```{r}
+write_csv(dogdata, here("data", "cleanData", "StrayDogData.csv"))
+```
+
+Awesome! If you have followed along I commend you, I know it is a pretty grueling and strenuous process. Nonetheless, we have accomplished a lot of cool things here!
+
+1.) We took a massive dataset, which is free for public use, and actually analyzed it
+2.) We learned and understood the importance of evaluating datasets before using them in map-making process (missing data, duplicates, etc)
+3.) And we took the final data set and exported it back to a csv file so we can read it and add it to the map of St. Louis in ArcMap.
+
+All of this, by the way, was done for FREE since Rstudio is open source software. How cool!
