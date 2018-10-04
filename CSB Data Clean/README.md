@@ -1,6 +1,6 @@
 <img src="https://slu-soc5650.github.io/images/logo.png" align="right" />
-![](https://img.shields.io/badge/semester-spring%202018-green.svg)
-![](https://img.shields.io/badge/release-complete-green.svg)
+[![](https://img.shields.io/badge/semester-spring%202018-green.svg)]
+[![](https://img.shields.io/badge/release-complete-green.svg)]
 
 ### Section Contents
 
